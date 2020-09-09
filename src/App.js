@@ -1,105 +1,44 @@
-import React, { useState } from "react";
-import Person from "./Person/Person";
-import Fruit from "./Fruit/Fruit";
+import React, { Component } from "react";
+import UserInput from "./UserInput/UserInput";
+import UserOutput from "./UserOutput/UserOutput";
 import "./App.css";
 
-const app = (props) => {
-  const [personState, setPersonState] = useState({
-    persons: [
-      { name: "Ankit", age: 22, hobby: "mobile games" },
-      { name: "David", age: 21, hobby: "coding" },
-    ],
-  });
+class App extends Component {
+  state = {
+    username: "Ankit",
+  };
 
-  const [fruitState, setFruitState] = useState({
-    fruits: [
-      { name: "Mango", color: "yellow", qty: 25 },
-      { name: "Orange", color: "orange", qty: 12 },
-      { name: "Apple", color: "red", qty: 40 },
-      { name: "Guava", color: "green", qty: 15 },
-    ],
-  });
-
-  const switchPersonHandler = (newName) => {
-    setPersonState({
-      persons: [
-        { name: "Ankit2", age: 25, hobby: "FPS games" },
-        { name: newName, age: 24, hobby: "web development" },
-      ],
+  changeUsernameHandler = (event) => {
+    this.setState({
+      username: event.target.value,
     });
   };
 
-  const changeFruitHandler = () => {
-    setFruitState({
-      fruits: [
-        { name: "Mango", color: "yellow", qty: 25 },
-        { name: "Orange", color: "orange", qty: 12 },
-        { name: "grapes", color: "brown", qty: 40 },
-        { name: "Guava", color: "green", qty: 15 },
-      ],
+  updateNameHandler = (newName) => {
+    this.setState({
+      username: newName,
     });
   };
 
-  const nameChangedHandler = (event) => {
-    setPersonState({
-      persons: [
-        { name: "Ankit2", age: 25, hobby: "FPS games" },
-        { name: event.target.value, age: 24, hobby: "web development" },
-      ],
-    });
-  };
+  render() {
+    return (
+      <div className="App">
+        <h1> This is a test application </h1>
+        <button
+          className="btn-primary"
+          onClick={this.updateNameHandler.bind(this, "Max!!")}
+        >
+          Update Name
+        </button>
+        <UserInput
+          changed={this.changeUsernameHandler}
+          username={this.state.username}
+        />
+        <UserOutput username={this.state.username} />
+        <UserOutput username={this.state.username} />
+      </div>
+    );
+  }
+}
 
-  return (
-    <div className="App">
-      <h1> This is my first react app </h1>
-      <button
-        className="btn-primary"
-        onClick={() => switchPersonHandler("Manuel!!")}
-      >
-        Switch Person
-      </button>
-      <Person
-        name={personState.persons[0].name}
-        age={personState.persons[0].age}
-      >
-        {personState.persons[0].hobby}
-      </Person>
-      <Person
-        click={switchPersonHandler.bind(this, "Max!!")}
-        changed={nameChangedHandler}
-        name={personState.persons[1].name}
-        age={personState.persons[1].age}
-      >
-        {personState.persons[1].hobby}
-      </Person>
-
-      <hr />
-      <h4>We have following fruit stocks:</h4>
-      <button className="btn-warning" onClick={changeFruitHandler}>
-        Remove Fruit
-      </button>
-      <Fruit
-        name={fruitState.fruits[0].name}
-        qty={fruitState.fruits[0].qty}
-        color={fruitState.fruits[0].color}
-      />
-      <Fruit
-        name={fruitState.fruits[1].name}
-        qty={fruitState.fruits[1].qty}
-        color={fruitState.fruits[1].color}
-      />
-      <Fruit
-        name={fruitState.fruits[2].name}
-        qty={fruitState.fruits[2].qty}
-        color={fruitState.fruits[2].color}
-      />
-      <Fruit
-        name={fruitState.fruits[3].name}
-        qty={fruitState.fruits[3].qty}
-        color={fruitState.fruits[3].color}
-      />
-    </div>
-  );
-};
-
-export default app;
+export default App;
