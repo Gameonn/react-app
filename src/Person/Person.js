@@ -14,23 +14,18 @@ const person = (props) => {
     boxShadow: "inset 0 1px 1px rgba(0,0,0,.075)",
   };
 
-  let inputField = null;
-  if (props.changed)
-    inputField = (
-      <input
-        type="text"
-        style={inputStyle}
-        onChange={props.changed}
-        value={props.name}
-      />
-    );
+  // let inputField = null;
+  // if (props.changed)
+    // let inputField = (
+
+    // );
 
   return (
     <div className="Person">
       <h4 onClick={props.click}>
         My Name is {props.name} and I am {props.age} years old. {props.children}
       </h4>
-      {inputField}
+      <input type="text" style={inputStyle} onChange={props.changed} value={props.name} />
       {/* <p>Using Math random function - {Math.floor(Math.random() * 115)} </p> */}
     </div>
   );
