@@ -88,6 +88,9 @@ class App extends Component {
   };
 
   render() {
+    const style = {
+      backgroundColor: '#ffc107'
+    }
     let persons = null;
 
     if (this.state.showPersons) {
@@ -108,20 +111,31 @@ class App extends Component {
           })}
         </div>
       );
+      style.backgroundColor = '#cbadd2';
     }
+
+    let classes = [];
+    if(this.state.persons.length <= 2)
+      classes.push('dull');
+    if(this.state.persons.length <= 1)
+      classes.push('spacing');
+    if(this.state.persons.length == 0)
+      classes.push('bg');
+
+
+
     return (
       <div className="App">
-        <h1> This is my first react app </h1>
+        <h1 className={classes.join(' ')}> This is my first react app </h1>
         <button
           className="btn-primary"
           onClick={() => this.switchPersonHandler("Manuel!!")}
         >
           Switch Person
         </button>
-        <button className="btn-warning" onClick={this.togglePersonsHandler}>
+        <button className="btn-warning" style={style} onClick={this.togglePersonsHandler}>
           Toggle
         </button>
-
         {persons}
 
         <hr />
