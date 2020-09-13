@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Person from "./Person/Person";
 import Fruit from "./Fruit/Fruit";
+import Radium, { StyleRoot } from 'radium';
 import "./App.css";
 
 class App extends Component {
@@ -89,7 +90,11 @@ class App extends Component {
 
   render() {
     const style = {
-      backgroundColor: '#ffc107'
+      backgroundColor: '#ffc107',
+      ':hover': {
+        backgroundColor: '#5ee9af',
+        color: 'blue'
+      }
     }
     let persons = null;
 
@@ -112,6 +117,10 @@ class App extends Component {
         </div>
       );
       style.backgroundColor = '#cbadd2';
+      style[':hover'] = {
+        backgroundColor: '#9381f5',
+        color: 'green'
+      };
     }
 
     let classes = [];
@@ -119,52 +128,54 @@ class App extends Component {
       classes.push('dull');
     if(this.state.persons.length <= 1)
       classes.push('spacing');
-    if(this.state.persons.length == 0)
+    if(this.state.persons.length === 0)
       classes.push('bg');
 
 
 
     return (
-      <div className="App">
-        <h1 className={classes.join(' ')}> This is my first react app </h1>
-        <button
-          className="btn-primary"
-          onClick={() => this.switchPersonHandler("Manuel!!")}
-        >
-          Switch Person
-        </button>
-        <button className="btn-warning" style={style} onClick={this.togglePersonsHandler}>
-          Toggle
-        </button>
-        {persons}
+      <StyleRoot>
+        <div className="App">
+          <h1 className={classes.join(' ')}> This is my first react app </h1>
+          <button
+            className="btn-primary"
+            onClick={() => this.switchPersonHandler("Manuel!!")}
+          >
+            Switch Person
+          </button>
+          <button className="" style={style} onClick={this.togglePersonsHandler}>
+            Toggle
+          </button>
+          {persons}
 
-        <hr />
-        <h4>We have following fruit stocks:</h4>
-        <button className="btn-warning" onClick={this.changeFruitHandler}>
-          Change Fruit
-        </button>
-        <button className="btn-primary" onClick={this.toggleFruitHandler}>
-          Toggle
-        </button>
-        {this.state.showFruits ? (
-          <div>
-            {this.state.fruits.map((fruit, i) => {
-              return (
-                <Fruit
-                  key={fruit.id}
-                  name={fruit.name}
-                  qty={fruit.qty}
-                  color={fruit.color}
-                  click={() => this.removeFruitHandler(i)}
-                  changed={(e) => this.fruitChangeHandler(e, fruit.id)}
-                />
-              );
-            })}
-          </div>
-        ) : null}
-      </div>
+          <hr />
+          <h4>We have following fruit stocks:</h4>
+          <button className="btn-warning" onClick={this.changeFruitHandler}>
+            Change Fruit
+          </button>
+          <button className="btn-primary" onClick={this.toggleFruitHandler}>
+            Toggle
+          </button>
+          {this.state.showFruits ? (
+            <div>
+              {this.state.fruits.map((fruit, i) => {
+                return (
+                  <Fruit
+                    key={fruit.id}
+                    name={fruit.name}
+                    qty={fruit.qty}
+                    color={fruit.color}
+                    click={() => this.removeFruitHandler(i)}
+                    changed={(e) => this.fruitChangeHandler(e, fruit.id)}
+                  />
+                );
+              })}
+            </div>
+          ) : null}
+        </div>
+      </StyleRoot>
     );
   }
 }
 
-export default App;
+export default Radium(App);

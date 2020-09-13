@@ -1,4 +1,5 @@
 import React from "react";
+import Radium from 'radium';
 import "./Person.css";
 
 const person = (props) => {
@@ -14,8 +15,15 @@ const person = (props) => {
     boxShadow: "inset 0 1px 1px rgba(0,0,0,.075)",
   };
 
+  const style = null;
+  // const style = {
+  //   '@media (min-width: 500px)': {
+  //     width: '450px'
+  //   }
+  // };
+
   return (
-    <div className="Person">
+    <div className="Person" style={style}>
       <h4 onClick={props.click}>
         My Name is {props.name} and I am {props.age} years old. {props.children}
       </h4>
@@ -25,4 +33,4 @@ const person = (props) => {
   );
 };
 
-export default person;
+export default Radium(person);
