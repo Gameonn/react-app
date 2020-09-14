@@ -3,6 +3,13 @@
   margin: 10px;
 }
 
+.Fruit input {
+  border-radius: 10px;
+  margin: 5px 10px;
+  padding: 5px 10px;
+  color: #538883;
+}
+
 .orange {
   background-color: rgb(214, 162, 65);
   padding: 5px 10px;
@@ -23,6 +30,8 @@
   background-color: rgb(216, 164, 164);
   padding: 5px 10px;
 }
+
+
 @media (min-width: 500px) {
   .Fruit {
     background-color: #f0f09e;
