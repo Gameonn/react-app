@@ -1,5 +1,5 @@
 import React from "react";
-import "./Person.css";
+import classes from "./Person.css";
 
 const person = (props) => {
   //inline styles
@@ -16,7 +16,7 @@ const person = (props) => {
 
 
   return (
-    <div className="Person">
+    <div className={classes.Person}>
       <h4 onClick={props.click}>
         My Name is {props.name} and I am {props.age} years old. {props.children}
       </h4>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Person from "./Person/Person";
 import Fruit from "./Fruit/Fruit";
-import "./App.css";
+import classes from "./App.css";
 
 class App extends Component {
   state = {
@@ -114,19 +114,19 @@ class App extends Component {
       style.backgroundColor = '#cbadd2';
     }
 
-    let classes = [];
+    let assignedClasses = [];
     if(this.state.persons.length <= 2)
-      classes.push('dull');
+      assignedClasses.push(classes.dull);
     if(this.state.persons.length <= 1)
-      classes.push('spacing');
+      assignedClasses.push(classes.spacing);
     if(this.state.persons.length === 0)
-      classes.push('bg');
+      assignedClasses.push(classes.bg);
 
     return (
-        <div className="App">
-          <h1 className={classes.join(' ')}> This is my first react app </h1>
+        <div className={classes.App}>
+          <h1 className={assignedClasses.join(' ')}> This is my first react app </h1>
           <button
-            className="btn-primary"
+            className={classes['btn-primary']}
             onClick={() => this.switchPersonHandler("Manuel!!")}
           >
             Switch Person
@@ -138,10 +138,10 @@ class App extends Component {
 
           <hr />
           <h4>We have following fruit stocks:</h4>
-          <button className="btn-warning" onClick={this.changeFruitHandler}>
+          <button className={classes['btn-warning']} onClick={this.changeFruitHandler}>
             Change Fruit
           </button>
-          <button className="btn-primary" onClick={this.toggleFruitHandler}>
+          <button className={classes['btn-primary']} onClick={this.toggleFruitHandler}>
             Toggle
           </button>
           {this.state.showFruits ? (
