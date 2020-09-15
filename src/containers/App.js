@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Person from "./Person/Person";
-import Fruit from "./Fruit/Fruit";
-import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
+import Persons from "../components/Persons/Persons";
+import Fruits from "../components/Fruits/Fruits";
+import Cockpit from "../components/Cockpit/Cockpit";
 import classes from "./App.css";
 
 class App extends Component {
@@ -89,53 +89,20 @@ class App extends Component {
   };
 
   render() {
-    const style = {
-      backgroundColor: '#ffc107',
-    }
-    let persons = null;
 
+    let persons = null;
     if (this.state.showPersons) {
       persons = (
         <div style={{ display: "inline-flex" }}>
-          {this.state.persons.map((person, index) => {
-            return (
-              <ErrorBoundary key={person.id}>
-                <Person
-                  name={person.name}
-                  age={person.age}
-                  click={() => this.deletePersonHandler(index)}
-                  changed={(event) => this.nameChangedHandler(event, person.id)}
-                >
-                  {person.hobby}
-                </Person>
-              </ErrorBoundary>
-            );
-          })}
+          <Persons persons={this.state.persons} clicked={this.deletePersonHandler} changed={this.nameChangedHandler} />
         </div>
       );
-      style.backgroundColor = '#cbadd2';
     }
-
-    let assignedClasses = [];
-    if(this.state.persons.length <= 2)
-      assignedClasses.push(classes.dull);
-    if(this.state.persons.length <= 1)
-      assignedClasses.push(classes.spacing);
-    if(this.state.persons.length === 0)
-      assignedClasses.push(classes.bg);
 
     return (
         <div className={classes.App}>
-          <h1 className={assignedClasses.join(' ')}> This is my first react app </h1>
-          <button
-            className={classes['btn-primary']}
-            onClick={() => this.switchPersonHandler("Manuel!!")}
-          >
-            Switch Person
-          </button>
-          <button className="" style={style} onClick={this.togglePersonsHandler}>
-            Toggle
-          </button>
+          <Cockpit persons={this.state.persons} showPersons={this.state.showPersons}
+                  toggle={this.togglePersonsHandler} switch={this.switchPersonHandler} />
           {persons}
 
           <hr />
@@ -147,20 +114,7 @@ class App extends Component {
             Toggle
           </button>
           {this.state.showFruits ? (
-            <div>
-              {this.state.fruits.map((fruit, i) => {
-                return (
-                  <Fruit
-                    key={fruit.id}
-                    name={fruit.name}
-                    qty={fruit.qty}
-                    color={fruit.color}
-                    click={() => this.removeFruitHandler(i)}
-                    changed={(e) => this.fruitChangeHandler(e, fruit.id)}
-                  />
-                );
-              })}
-            </div>
+              <Fruits fruits={this.state.fruits} clicked={this.removeFruitHandler} changed={this.fruitChangeHandler} />
           ) : null}
         </div>
     );

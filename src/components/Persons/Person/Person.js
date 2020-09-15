@@ -14,11 +14,6 @@ const person = (props) => {
     boxShadow: "inset 0 1px 1px rgba(0,0,0,.075)",
   };
 
-  const rnd = Math.random();
-  if(rnd > 0.7) {
-    throw new Error('Something went wrong');
-  }
-
   return (
     <div className={classes.Person}>
       <h4 onClick={props.click}>

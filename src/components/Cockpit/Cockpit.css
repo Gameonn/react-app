@@ -1,0 +1,16 @@
+.Cockpit {
+    width: 50%;
+    border: 10px ridge #a490f1;
+    margin: 20px auto;
+    padding: 50px;
+    border-radius: 50%;
+}
+.dull {
+    color: #e9d99b;
+}
+.spacing {
+    word-spacing: 2.5em;
+}
+.bg {
+    background: whitesmoke;
+}
