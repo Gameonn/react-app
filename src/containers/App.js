@@ -5,20 +5,59 @@ import Cockpit from "../components/Cockpit/Cockpit";
 import classes from "./App.css";
 
 class App extends Component {
-  state = {
-    persons: [
-      { id: 1, name: "Ankit", age: 22, hobby: "mobile games" },
-      { id: 2, name: "David", age: 21, hobby: "coding" },
-    ],
-    fruits: [
-      { id: 1, name: "Mango", color: "yellow", qty: 25 },
-      { id: 2, name: "Orange", color: "orange", qty: 12 },
-      { id: 3, name: "Apple", color: "red", qty: 40 },
-      { id: 4, name: "Guava", color: "green", qty: 15 },
-    ],
-    showPersons: true,
-    showFruits: false,
-  };
+
+  constructor(props) {
+    super(props);
+    console.log('[App.js] constructor');
+
+    this.state = {
+      persons: [
+        { id: 1, name: "Ankit", age: 22, hobby: "mobile games" },
+        { id: 2, name: "David", age: 21, hobby: "coding" },
+      ],
+      fruits: [
+        { id: 1, name: "Mango", color: "yellow", qty: 25 },
+        { id: 2, name: "Orange", color: "orange", qty: 12 },
+        { id: 3, name: "Apple", color: "red", qty: 40 },
+        { id: 4, name: "Guava", color: "green", qty: 15 },
+      ],
+      showPersons: true,
+      showFruits: false,
+      showCockpit: true,
+    };
+
+  }
+
+  static getDerivedStateFromProps(props,state) {
+    console.log('[App.js] getDerivedStateFromProps', props, state);
+    return state;
+  }
+
+  componentDidMount() {
+    console.log('[App.js] componentDidMount');
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('[App.js] componentDidUpdate');
+  }
+
+  // componentWillReceiveProps(nextProps) {
+  //   console.log('[App.js] componentWillReceiveProps');
+  //   if (this.props !== nextProps) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('[App.js] shouldComponentUpdate');
+    return true;
+  }
+
+  componentWillUnmount() {
+    console.log('[App.js] componentWillUnmount');
+  }
+
 
   switchPersonHandler = (newName) => {
     this.setState({
@@ -50,8 +89,6 @@ class App extends Component {
     const personIndex = this.state.persons.findIndex((person) => {
       return person.id === id;
     });
-    console.log("personIndex", id);
-    console.log("target", event.target.value);
     const person = { ...this.state.persons[personIndex] };
 
     // const person = Object.assign({}, this.state.persons[personIndex]);
@@ -89,6 +126,7 @@ class App extends Component {
   };
 
   render() {
+    console.log('[App.js] render ');
 
     let persons = null;
     if (this.state.showPersons) {
@@ -101,8 +139,12 @@ class App extends Component {
 
     return (
         <div className={classes.App}>
-          <Cockpit persons={this.state.persons} showPersons={this.state.showPersons}
-                  toggle={this.togglePersonsHandler} switch={this.switchPersonHandler} />
+          <button onClick={() => {this.setState({showCockpit:false})}} > Remove Cockpit </button>
+          {this.state.showCockpit ? (
+          <Cockpit title={this.props.appTitle} persons={this.state.persons} showPersons={this.state.showPersons}
+                  toggle={this.togglePersonsHandler} personsLength={this.state.persons.length}
+                  switch={this.switchPersonHandler} />
+          ) : null};
           {persons}
 
           <hr />

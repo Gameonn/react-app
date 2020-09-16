@@ -2,6 +2,8 @@ import React from "react";
 import classes from "./Person.css";
 
 const person = (props) => {
+
+  console.log( '[Person.js] rendering' );
   //inline styles
   const inputStyle = {
     backgroundColor: "#eee",
