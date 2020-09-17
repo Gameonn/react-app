@@ -1,6 +1,5 @@
 import React from "react";
 import classes from "./Person.css";
-import Auxiliary from '../../../hoc/Auxiliary/Auxiliary';
 
 const person = (props) => {
 
@@ -18,13 +17,13 @@ const person = (props) => {
   };
 
   return (
-    <Auxiliary className={classes.Person}>
+    <div className={classes.Person}>
       <h4 onClick={props.click}>
         My Name is {props.name} and I am {props.age} years old. {props.children}
       </h4>
       <input type="text" style={inputStyle} onChange={props.changed} value={props.name} />
       {/* <p>Using Math random function - {Math.floor(Math.random() * 115)} </p> */}
-    </Auxiliary>
+    </div>
   );
 };
 
