@@ -5,12 +5,14 @@ import Cockpit from "../components/Cockpit/Cockpit";
 import WithClass from "../hoc/WithClass/WithClass";
 import Auxiliary from "../hoc/Auxiliary/Auxiliary";
 import classes from "./App.css";
+import AuthContext from '../context/auth-context';
 
 class App extends Component {
 
   constructor(props) {
     super(props);
     console.log('[App.js] constructor');
+    this.textElementRef = React.createRef();
 
     this.state = {
       persons: [
@@ -27,6 +29,7 @@ class App extends Component {
       showFruits: false,
       showCockpit: true,
       changeCounter: 0,
+      isAuthenticated: false,
     };
 
   }
@@ -38,6 +41,7 @@ class App extends Component {
 
   componentDidMount() {
     console.log('[App.js] componentDidMount');
+    this.textElementRef.current.style.backgroundColor  = 'red';
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -130,6 +134,10 @@ class App extends Component {
     this.setState({ fruits: fruits });
   };
 
+  loginHandler = () => {
+    this.setState({isAuthenticated: true});
+  }
+
   render() {
     console.log('[App.js] render ');
 
@@ -137,7 +145,8 @@ class App extends Component {
     if (this.state.showPersons) {
       persons = (
         <div style={{ display: "inline-flex" }}>
-          <Persons persons={this.state.persons} clicked={this.deletePersonHandler} changed={this.nameChangedHandler} />
+          <Persons persons={this.state.persons} clicked={this.deletePersonHandler}
+              changed={this.nameChangedHandler} isAuthenticated={this.state.isAuthenticated} />
         </div>
       );
     }
@@ -145,15 +154,17 @@ class App extends Component {
     return (
         <Auxiliary classes={classes.App}>
           <button onClick={() => {this.setState({showCockpit:false})}} > Remove Cockpit </button>
-          {this.state.showCockpit ? (
-          <Cockpit title={this.props.appTitle} persons={this.state.persons} showPersons={this.state.showPersons}
-                  toggle={this.togglePersonsHandler} personsLength={this.state.persons.length}
-                  switch={this.switchPersonHandler} />
-          ) : null};
-          {persons}
+          <AuthContext.Provider value={{isAuthenticated: this.state.isAuthenticated, login: this.loginHandler}}>
+            {this.state.showCockpit ? (
+            <Cockpit title={this.props.appTitle} persons={this.state.persons} showPersons={this.state.showPersons}
+                    toggle={this.togglePersonsHandler} personsLength={this.state.persons.length}
+                    switch={this.switchPersonHandler}/>
+            ) : null};
+            {persons}
+          </AuthContext.Provider>
 
           <hr />
-          <h4>We have following fruit stocks:</h4>
+          <h4 ref={this.textElementRef}>We have following fruit stocks:</h4>
           <button className={classes['btn-warning']} onClick={this.changeFruitHandler}>
             Change Fruit
           </button>

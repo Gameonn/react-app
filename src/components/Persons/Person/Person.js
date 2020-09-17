@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./Person.css";
 import Auxiliary from '../../../hoc/Auxiliary/Auxiliary';
 import PropTypes from 'prop-types';
+import AuthContext from '../../../context/auth-context';
 
 const person = (props) => {
 
@@ -20,6 +21,9 @@ const person = (props) => {
 
   return (
     <Auxiliary className={classes.Person}>
+      <AuthContext.Consumer>
+        {(context) => context.isAuthenticated ? <p> Authenticated</p> : <p>Please Log in</p>}
+      </AuthContext.Consumer>
       <h4 onClick={props.click}>
         My Name is {props.name} and I am {props.age} years old. {props.children}
       </h4>
@@ -29,7 +33,7 @@ const person = (props) => {
   );
 };
 
-person.PropTypes = {
+person.propTypes = {
     click: PropTypes.func,
     name: PropTypes.string,
     age: PropTypes.number,
