@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./Person.css";
 import Auxiliary from '../../../hoc/Auxiliary/Auxiliary';
+import PropTypes from 'prop-types';
 
 const person = (props) => {
 
@@ -27,5 +28,12 @@ const person = (props) => {
     </Auxiliary>
   );
 };
+
+person.PropTypes = {
+    click: PropTypes.func,
+    name: PropTypes.string,
+    age: PropTypes.number,
+    changed: PropTypes.func
+}
 
 export default person;
